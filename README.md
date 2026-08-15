@@ -34,12 +34,9 @@
 - **目标 DSH 版本：`0.0.1-rc.1`**（插件 peerDependencies 依赖同版本 `@deepseek-ai/dsh-*` 工作区包）。
 - **依赖新增宿主 RPC `session.enhancePrompt`**：补丁 `patch-0001-prompt-enhancer.patch` 包含该 apiproxy 改动，安装时必须应用（若接收方 DSH 已含该 RPC 可跳过）。
 
-> ⚠️ 目前不提供 npm 包分发：`@deepseek-ai/dsh-*@0.1.0-rc.5` 尚未发布到公开 npm（仅有旧版 `0.0.1-rc.1`），
-> peerDependencies 无法在 npm 上解析。本仓库以**源码 + 补丁**形态开源，安装方为 DSH 部署维护者。
-
 ## 安装
 
-见 [INSTALL.md](INSTALL.md)。核心步骤（DSH `0.1.0-rc.5` checkout 根目录）：
+见 [INSTALL.md](INSTALL.md)。核心步骤（DSH `0.0.1-rc.1` checkout 根目录）：
 
 ```bash
 # 1. 应用补丁（apiproxy 新 RPC + 组合接线 + 测试）
