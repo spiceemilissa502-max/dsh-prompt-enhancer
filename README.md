@@ -61,7 +61,7 @@ node install.mjs /path/to/dsh            # bash install.sh /path/to/dsh（*nix �
 # Windows PowerShell
 powershell -ExecutionPolicy Bypass -File install.ps1 C:\path\to\dsh
 # GitHub 推送后，可远程一键（无需 clone 本仓库）
-curl -fsSL https://raw.githubusercontent.com/<user>/dsh-prompt-enhancer/main/install.sh | bash -s -- /path/to/dsh
+curl -fsSL https://raw.githubusercontent.com/spiceemilissa502-max/dsh-prompt-enhancer/main/install.sh | bash -s -- /path/to/dsh
 ```
 
 安装器自动：
