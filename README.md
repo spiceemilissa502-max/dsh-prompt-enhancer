@@ -51,6 +51,26 @@ pnpm install && pnpm run build
 # 4. 重启 dsh，刷新浏览器
 ```
 
+## 安装（一条命令）
+
+其他用户只需一条命令即可完成全部安装（自动应用补丁、放置插件包、复核接线、构建）：
+
+```bash
+# 本地仓库
+node install.mjs /path/to/dsh            # bash install.sh /path/to/dsh（*nix 包装）
+# Windows PowerShell
+powershell -ExecutionPolicy Bypass -File install.ps1 C:\path\to\dsh
+# GitHub 推送后，可远程一键（无需 clone 本仓库）
+curl -fsSL https://raw.githubusercontent.com/<user>/dsh-prompt-enhancer/main/install.sh | bash -s -- /path/to/dsh
+```
+
+安装器自动：
+- 检测 `session.enhancePrompt` RPC 是否已存在 → 已存在则跳过补丁（**版本自动适配，无需核对版本号**）；
+- 应用 apiproxy 补丁、放置插件包到 `packages/client/ui-prompt-enhancer`、复核组合接线（幂等，可重复执行）；
+- 执行 `pnpm install` + `build:lib:host` + `build:lib:client`；追加 `--with-web` 连浏览器产物一起构建，`--skip-build` 跳过构建。
+
+> 前提：目标为 **git clone 的 DSH 源码 checkout**（补丁经 `git apply` 应用）。手动分步安装见 [INSTALL.md](INSTALL.md)。
+
 ## 使用
 
 1. 在输入框输入任意内容 → 模型选择左侧出现魔法棒图标。
