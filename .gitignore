@@ -1,0 +1,10 @@
+# dependencies / build artifacts
+node_modules/
+**/lib/
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

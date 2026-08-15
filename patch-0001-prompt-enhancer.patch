@@ -1,0 +1,568 @@
+diff --git a/docs/config-catalog.md b/docs/config-catalog.md
+index 20919b3fdc..4d746fd29b 100644
+--- a/docs/config-catalog.md
++++ b/docs/config-catalog.md
+@@ -3046,6 +3046,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
+ - `@deepseek-ai/dsh-client-ui-model-selection` ([`packages/client/ui-model-selection/src/index.ts`](../packages/client/ui-model-selection/src/index.ts))
+ - `@deepseek-ai/dsh-client-ui-permission-presets` ([`packages/client/ui-permission-presets/src/index.ts`](../packages/client/ui-permission-presets/src/index.ts))
+ - `@deepseek-ai/dsh-client-ui-plan` ([`packages/client/ui-plan/src/index.ts`](../packages/client/ui-plan/src/index.ts))
++- `@deepseek-ai/dsh-client-ui-prompt-enhancer` ([`packages/client/ui-prompt-enhancer/src/index.ts`](../packages/client/ui-prompt-enhancer/src/index.ts))
+ - `@deepseek-ai/dsh-client-ui-settings` ([`packages/client/ui-settings/src/index.ts`](../packages/client/ui-settings/src/index.ts))
+ - `@deepseek-ai/dsh-client-ui-settings-general` ([`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts))
+ - `@deepseek-ai/dsh-client-ui-settings-models` ([`packages/client/ui-settings-models/src/index.ts`](../packages/client/ui-settings-models/src/index.ts))
+diff --git a/docs/config-catalog.zh.md b/docs/config-catalog.zh.md
+index 8dfb49df5e..a0e63549d9 100644
+--- a/docs/config-catalog.zh.md
++++ b/docs/config-catalog.zh.md
+@@ -3048,6 +3048,7 @@ export interface Config {
+ - `@deepseek-ai/dsh-client-ui-model-selection`（[`packages/client/ui-model-selection/src/index.ts`](../packages/client/ui-model-selection/src/index.ts)）
+ - `@deepseek-ai/dsh-client-ui-permission-presets`（[`packages/client/ui-permission-presets/src/index.ts`](../packages/client/ui-permission-presets/src/index.ts)）
+ - `@deepseek-ai/dsh-client-ui-plan`（[`packages/client/ui-plan/src/index.ts`](../packages/client/ui-plan/src/index.ts)）
++- `@deepseek-ai/dsh-client-ui-prompt-enhancer`（[`packages/client/ui-prompt-enhancer/src/index.ts`](../packages/client/ui-prompt-enhancer/src/index.ts)）
+ - `@deepseek-ai/dsh-client-ui-settings`（[`packages/client/ui-settings/src/index.ts`](../packages/client/ui-settings/src/index.ts)）
+ - `@deepseek-ai/dsh-client-ui-settings-general`（[`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts)）
+ - `@deepseek-ai/dsh-client-ui-settings-models`（[`packages/client/ui-settings-models/src/index.ts`](../packages/client/ui-settings-models/src/index.ts)）
+diff --git a/docs/module-graph.md b/docs/module-graph.md
+index 24ee9a4815..24417c4834 100644
+--- a/docs/module-graph.md
++++ b/docs/module-graph.md
+@@ -140,6 +140,7 @@ flowchart TD
+     pkg_client_ui_permission_presets["client-ui-permission-presets"]
+     pkg_client_ui_plan["client-ui-plan"]
+     pkg_client_ui_primitives["client-ui-primitives"]
++    pkg_client_ui_prompt_enhancer["client-ui-prompt-enhancer"]
+     pkg_client_ui_settings["client-ui-settings"]
+     pkg_client_ui_settings_general["client-ui-settings-general"]
+     pkg_client_ui_settings_models["client-ui-settings-models"]
+@@ -1332,6 +1333,14 @@ flowchart TD
+   pkg_client_ui_plan --> pkg_client_ui_slots
+   pkg_client_ui_plan --> pkg_invariants
+   pkg_client_ui_plan --> pkg_plan_mode
++  pkg_client_ui_prompt_enhancer --> pkg_api_remotes
++  pkg_client_ui_prompt_enhancer --> pkg_client_connection
++  pkg_client_ui_prompt_enhancer --> pkg_client_locale
++  pkg_client_ui_prompt_enhancer --> pkg_client_runtime
++  pkg_client_ui_prompt_enhancer --> pkg_client_ui_conversation
++  pkg_client_ui_prompt_enhancer --> pkg_client_ui_settings
++  pkg_client_ui_prompt_enhancer --> pkg_client_ui_slots
++  pkg_client_ui_prompt_enhancer --> pkg_invariants
+   pkg_client_ui_subagent --> pkg_client_locale
+   pkg_client_ui_subagent --> pkg_client_runtime
+   pkg_client_ui_subagent --> pkg_client_ui_conversation
+@@ -1627,6 +1636,7 @@ flowchart TD
+ | [`client-ui-jobs`](../packages/client/ui-jobs) | `client` | [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants) |
+ | [`client-ui-message-feedback`](../packages/client/ui-message-feedback) | `client` | [`api-remotes`](../packages/api/remotes), [`client-connection`](../packages/client/connection), [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants), [`message-feedback`](../packages/feedback/message-feedback), [`typert-protocol`](../packages/typert/protocol) |
+ | [`client-ui-plan`](../packages/client/ui-plan) | `client` | [`api-remotes`](../packages/api/remotes), [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants), [`plan-mode`](../packages/plan/plan-mode) |
++| [`client-ui-prompt-enhancer`](../packages/client/ui-prompt-enhancer) | `client` | [`api-remotes`](../packages/api/remotes), [`client-connection`](../packages/client/connection), [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-settings`](../packages/client/ui-settings), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants) |
+ | [`client-ui-subagent`](../packages/client/ui-subagent) | `client` | [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-input-trigger`](../packages/client/ui-input-trigger), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants), [`subagent`](../packages/subagent/subagent), [`token-meter`](../packages/llm/token-meter) |
+ | [`client-ui-tool`](../packages/client/ui-tool) | `client` | [`api-remotes`](../packages/api/remotes), [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants) |
+ | [`client-ui-workflow-run`](../packages/client/ui-workflow-run) | `client` | [`client-locale`](../packages/client/locale), [`client-runtime`](../packages/client/runtime), [`client-ui-conversation`](../packages/client/ui-conversation), [`client-ui-primitives`](../packages/client/ui-primitives), [`client-ui-slots`](../packages/client/ui-slots), [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`tool-workflow`](../packages/workflow/tool-workflow), [`workflow`](../packages/workflow/workflow) |
+diff --git a/packages/bundle/web-app/cordis.patch.yml b/packages/bundle/web-app/cordis.patch.yml
+index b06e63b54f..5c22e78242 100644
+--- a/packages/bundle/web-app/cordis.patch.yml
++++ b/packages/bundle/web-app/cordis.patch.yml
+@@ -250,6 +250,11 @@
+     - id: ui-model-selection
+       name: '@deepseek-ai/dsh-client-ui-model-selection'
+ 
++    # Prompt enhancer: composer trigger left of the model selector + General
++    # settings toggle over session.enhancePrompt.
++    - id: ui-prompt-enhancer
++      name: '@deepseek-ai/dsh-client-ui-prompt-enhancer'
++
+     - id: ui-permission
+       name: '@deepseek-ai/dsh-client-ui-permission-presets'
+ 
+diff --git a/packages/bundle/web-app/package.json b/packages/bundle/web-app/package.json
+index ca4709a2a9..918e14f658 100644
+--- a/packages/bundle/web-app/package.json
++++ b/packages/bundle/web-app/package.json
+@@ -63,6 +63,7 @@
+     "@deepseek-ai/dsh-client-ui-goal": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-layout": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-model-selection": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-prompt-enhancer": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-settings-models": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-settings-plugin-inventory": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-permission-presets": "workspace:^",
+diff --git a/packages/client/connection/src/client/fixture.ts b/packages/client/connection/src/client/fixture.ts
+index dd0566486e..446ba6eea8 100644
+--- a/packages/client/connection/src/client/fixture.ts
++++ b/packages/client/connection/src/client/fixture.ts
+@@ -2395,6 +2395,15 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
+         modelSelections.set(request.payload.sessionId, selected)
+         return ok(request, { selected })
+       },
++      enhancePrompt: (request) => {
++        // Deterministic no-op enhancement: the fixture echoes the draft back so
++        // tests exercise the write path without a live model.
++        return ok(request, {
++          text: request.payload.text.trim(),
++          provider: 'deepseek-official',
++          model: 'deepseek-v4-flash',
++        })
++      },
+       prompt: (request) => {
+         const { sessionId: id, mode, content } = request.payload
+         const summary = summaryOf(id)
+@@ -3083,6 +3092,7 @@ export class FixtureApiClient extends AbstractApiClient {
+       case 'session.history': return this.api.sessions.history(request)
+       case 'session.models': return this.api.sessions.models(request)
+       case 'session.selectModel': return this.api.sessions.selectModel(request)
++      case 'session.enhancePrompt': return this.api.sessions.enhancePrompt(request)
+       case 'session.rename': return this.api.sessions.rename(request)
+       case 'session.fork': return this.api.sessions.fork(request)
+       case 'session.prompt': return this.api.sessions.prompt(request)
+diff --git a/packages/client/connection/tests/fake-api.client.ts b/packages/client/connection/tests/fake-api.client.ts
+index bee4fc0ce0..95ab825382 100644
+--- a/packages/client/connection/tests/fake-api.client.ts
++++ b/packages/client/connection/tests/fake-api.client.ts
+@@ -115,6 +115,11 @@ export class FakeApiClient implements IApiClient {
+     models: (payload: unknown) => this.record('session.models', payload, this.onModels(payload)),
+     selectModel: (payload: ModelSelection & { sessionId: SessionId }) =>
+       this.record('session.selectModel', payload, this.onSelectModel(payload)),
++    enhancePrompt: (payload: unknown) => this.record('session.enhancePrompt', payload, Promise.resolve(ok({
++      text: (payload as { text?: string } | undefined)?.text ?? '',
++      provider: 'deepseek-official',
++      model: 'deepseek-v4-flash',
++    }))),
+     rename: (payload: unknown) => this.record('session.rename', payload, this.onRename(payload)),
+     fork: (payload: unknown) => this.record('session.fork', payload, this.onFork(payload)),
+     prompt: (payload: unknown) => this.record('session.prompt', payload, this.onPrompt(payload)),
+diff --git a/packages/client/runtime/tests/fake-api.client.ts b/packages/client/runtime/tests/fake-api.client.ts
+index 33a0efbbfd..25badd29ca 100644
+--- a/packages/client/runtime/tests/fake-api.client.ts
++++ b/packages/client/runtime/tests/fake-api.client.ts
+@@ -149,6 +149,11 @@ export class FakeApiClient implements IApiClient {
+     models: (payload: unknown) => this.record('session.models', payload, this.onModels(payload)),
+     selectModel: (payload: { provider: string; model: string }) =>
+       this.record('session.selectModel', payload, this.onSelectModel(payload)),
++    enhancePrompt: (payload: unknown) => this.record('session.enhancePrompt', payload, Promise.resolve(ok({
++      text: (payload as { text?: string } | undefined)?.text ?? '',
++      provider: 'deepseek-official',
++      model: 'deepseek-v4-flash',
++    }))),
+     rename: (payload: unknown) => this.record('session.rename', payload, this.onRename(payload)),
+     fork: (payload: unknown) => this.record('session.fork', payload, this.onFork(payload)),
+     prompt: (payload: unknown) => this.record('session.prompt', payload, this.onPrompt(payload)),
+diff --git a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
+index 0cd1f51cd2..146a8b30a0 100644
+--- a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
++++ b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
+@@ -801,7 +801,9 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     hookContext: '',
+     slotInject: '',
+     declaredBy: 'an entry in \'conversation\' (client-ui-conversation), so it exists while that entry is mounted',
+-    occupants: [],
++    occupants: [
++      'client-ui-prompt-enhancer PromptEnhanceIcon id \'prompt-enhancer\'',
++    ],
+     replaceRisk: 'none',
+     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'conversation.input.right\', () => ctx.slots.register(\n      { name: \'conversation.input.right\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
+     source: 'packages/client/ui-conversation/src/client/contract/slots.ts:187',
+@@ -1188,6 +1190,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+       'client-ui-agent-preset AgentPresetRow id \'agent-preset\'',
+       'client-ui-conversation EnterBehaviorRow id \'composer-enter\'',
+       'client-ui-permission-presets PermissionRow id \'permission\'',
++      'client-ui-prompt-enhancer PromptEnhanceSetting id \'prompt-enhancer\'',
+       'client-ui-theme AppearanceRow id \'appearance\'',
+     ],
+     replaceRisk: 'none',
+diff --git a/packages/host/apiproxy/src/api-proxy.ts b/packages/host/apiproxy/src/api-proxy.ts
+index bda99362b6..f13c8a18ad 100644
+--- a/packages/host/apiproxy/src/api-proxy.ts
++++ b/packages/host/apiproxy/src/api-proxy.ts
+@@ -38,7 +38,7 @@ import type {} from '@deepseek-ai/dsh-tools'
+ import type {
+   ApiProxy, ConfigurableProviderView, CredentialView, GoalRef, HistoryEntry, HostFrame,
+   ModelCatalogFailure, ModelProviderGroup,
+-  ModelReasoning, MuxFrame, PromptContentPart, QuestionResponsePayload, SessionListMetadata, SessionProjectionsBlock, SessionSearchItem,
++  ModelReasoning, MuxFrame, PromptContentPart, PromptEnhancement, QuestionResponsePayload, SessionListMetadata, SessionProjectionsBlock, SessionSearchItem,
+   QueuedInboxItem, SessionSummary, SettingsNamespaceView, SubagentAddress, JobView, ToolEventView,
+   WorkspaceId, WorkspaceView,
+ } from './api/index.ts'
+@@ -113,6 +113,12 @@ import { canOpenNativePath, openNativePath, openNativeTextFile } from './native-
+ /** Page size when history is called without maxMessages. */
+ const DEFAULT_MAX_MESSAGES = 50
+ 
++/** Max entries in the prompt-enhancement cache (per gateway instance). */
++const ENHANCE_CACHE_LIMIT = 64
++
++/** System prompt for the prompt-enhancement call: polish the draft, stay concise, no chit-chat. */
++const ENHANCE_SYSTEM_PROMPT = '你是专业的提示词润色助手。请把用户提供的提示词改写得更专业、清晰、结构化，使其更利于 AI Agent 准确理解并执行。要求：\n1. 保留原意、语言与所有关键信息，不得虚构或删减需求。\n2. 补全缺失的上下文、目标、约束与期望输出格式。\n3. 直接输出改写后的提示词本身，不要输出任何解释、前后缀或 Markdown 代码块。\n4. 输出务必精炼：长度尽量接近原文（一般不超过原文的 1.5 倍），不做无意义的扩写。'
++
+ /**
+  * Non-model settings namespaces intentionally served to the Web client. The
+  * plugin-owned entries (`agent-loop`, `bash`, `web-search-deepseek`) are the
+@@ -124,7 +130,7 @@ const DEFAULT_MAX_MESSAGES = 50
+  * is deferred work.
+  */
+ const WEB_SETTINGS_NAMESPACES = [
+-  'agent-loop', 'shell', 'locale', 'permission', 'ui-conversation', 'ui-theme', 'web-search-deepseek',
++  'agent-loop', 'shell', 'locale', 'permission', 'ui-conversation', 'ui-theme', 'ui-prompt-enhancer', 'web-search-deepseek',
+ ] as const
+ 
+ /** Provider work budget: at most 100 calls and 2,000 inspected hits. */
+@@ -1115,6 +1121,8 @@ export function createApiProxy(ctx: Context, defaults: ApiProxyDefaults): ApiPro
+   }
+   type WebModelSelectionRef = ModelSelectionRef & { current: ModelSelection }
+   const selections = new WeakMap<Agent, WebModelSelectionRef>()
++  /** Same-draft prompt-enhancement calls share one in-flight request; repeat drafts hit the LRU. */
++  const enhanceCache = new Map<string, Promise<PromptEnhancement>>()
+   /**
+    * Serializes `agentPreset.select` per session. Two concurrent selects both
+    * pass the blank check, and the second `unmountPresetFor` then finds nothing
+@@ -2330,6 +2338,76 @@ export function createApiProxy(ctx: Context, defaults: ApiProxyDefaults): ApiPro
+         })
+       },
+ 
++      async enhancePrompt(request) {
++        const { sessionId, text } = request.payload
++        const found = await agentFor(sessionId)
++        if ('error' in found) return err(request, found.error)
++        const current = selectionFor(found.agent).current
++        const official = current.provider === 'deepseek-official'
++        const fallback = defaults.defaultModelSelection()
++        const target = official
++          ? { provider: 'deepseek-official', model: 'deepseek-v4-flash' }
++          : { provider: fallback.provider, model: fallback.model }
++
++        // Same-draft calls share one in-flight request; repeat drafts hit the
++        // LRU instead of paying a second model round-trip.
++        const cached = enhanceCache.get(text)
++        if (cached !== undefined) {
++          try {
++            return ok(request, await cached)
++          } catch (_cachedFailure) {
++            // Failed results are never cached: drop and re-run below.
++            enhanceCache.delete(text)
++          }
++        }
++
++        const message = createUserMessage({
++          content: [{ type: 'text', text }],
++          source: { kind: 'user' },
++        })
++        const options: Parameters<typeof ctx.llm.stream>[0] = {
++          provider: target.provider,
++          model: target.model,
++          messages: [message],
++          system: ENHANCE_SYSTEM_PROMPT,
++          maxTokens: 1024,
++          // Official DeepSeek: reasoning is the dominant latency term, so the
++          // enhancement call explicitly turns it off. Third-party defaults are
++          // left untouched because their effort vocabulary is provider-owned.
++          ...official ? { reasoningEffort: ReasoningEffortId('off') } : {},
++        }
++        const task = (async (): Promise<PromptEnhancement> => {
++          let out = ''
++          for await (const chunk of ctx.llm.stream(options)) {
++            if (chunk.type === 'text-delta') out += chunk.text
++            else if (chunk.type === 'finish') {
++              const reason = chunk.reason
++              if (reason.kind === 'error' || reason.kind === 'aborted') {
++                throw new Error(`model call failed: ${reason.failure.message}`)
++              }
++            }
++          }
++          const enhanced = out.trim()
++          if (enhanced.length === 0) throw new Error('model produced no output')
++          return { text: enhanced, provider: target.provider, model: target.model }
++        })()
++        enhanceCache.set(text, task)
++        if (enhanceCache.size > ENHANCE_CACHE_LIMIT) {
++          const oldest = enhanceCache.keys().next().value
++          if (oldest !== undefined) enhanceCache.delete(oldest)
++        }
++        try {
++          return ok(request, await task)
++        } catch (error: unknown) {
++          enhanceCache.delete(text)
++          return err(request, {
++            code: 'model-unavailable',
++            message: `prompt enhancement failed: ${error instanceof Error ? error.message : String(error)}`,
++            details: { provider: target.provider, model: target.model },
++          })
++        }
++      },
++
+       async rename(request) {
+         const { sessionId, title } = request.payload
+         const found = await agentFor(sessionId)
+diff --git a/packages/host/apiproxy/src/api/index.ts b/packages/host/apiproxy/src/api/index.ts
+index b5e1d1ffd9..5797597d9d 100644
+--- a/packages/host/apiproxy/src/api/index.ts
++++ b/packages/host/apiproxy/src/api/index.ts
+@@ -44,7 +44,7 @@ export interface ApiProxy {
+ // ---- Domain interfaces and payload entities ----
+ export type {
+   HistoryEntry, ModelCatalogFailure, ModelCatalogModel, ModelProviderGroup, ModelReasoning,
+-  ModelReasoningEffort, ModelSelection, PromptContentPart, QueueAction, SessionModels,
++  ModelReasoningEffort, ModelSelection, PromptContentPart, PromptEnhancement, QueueAction, SessionModels,
+   SessionListMetadata, SessionProjectionsBlock, SessionSearchItem, SessionsApi, SessionSummary,
+ } from './sessions.ts'
+ export type { DirectoryEntry, DirectoryListing, HostApi } from './host.ts'
+diff --git a/packages/host/apiproxy/src/api/rpc-map.ts b/packages/host/apiproxy/src/api/rpc-map.ts
+index 80dede1799..5976afeb04 100644
+--- a/packages/host/apiproxy/src/api/rpc-map.ts
++++ b/packages/host/apiproxy/src/api/rpc-map.ts
+@@ -28,6 +28,7 @@ export interface RpcMethodMap {
+   'session.history': SessionsApi['history']
+   'session.models': SessionsApi['models']
+   'session.selectModel': SessionsApi['selectModel']
++  'session.enhancePrompt': SessionsApi['enhancePrompt']
+   'session.rename': SessionsApi['rename']
+   'session.fork': SessionsApi['fork']
+   'session.prompt': SessionsApi['prompt']
+diff --git a/packages/host/apiproxy/src/api/sessions.schema.ts b/packages/host/apiproxy/src/api/sessions.schema.ts
+index 0fbe06bf11..c2c68c8c9f 100644
+--- a/packages/host/apiproxy/src/api/sessions.schema.ts
++++ b/packages/host/apiproxy/src/api/sessions.schema.ts
+@@ -267,6 +267,22 @@ export const sessionSelectModelValueSchema = z.object({
+   selected: modelSelectionSchema,
+ }) satisfies z.ZodType<Wire<ResponseValue<'session.selectModel'>>>
+ 
++/** Upper bound on a single enhancement request's draft (keeps generation time bounded). */
++const SESSION_ENHANCE_TEXT_MAX_CHARS = 12_000
++
++/** session.enhancePrompt request payload. */
++export const sessionEnhancePromptRequestSchema = z.object({
++  sessionId: sessionIdSchema,
++  text: z.string().trim().min(1).max(SESSION_ENHANCE_TEXT_MAX_CHARS),
++}) satisfies z.ZodType<Wire<RequestPayload<'session.enhancePrompt'>>>
++
++/** session.enhancePrompt response value. */
++export const sessionEnhancePromptValueSchema = z.object({
++  text: z.string(),
++  provider: z.string().min(1),
++  model: z.string().min(1),
++}) satisfies z.ZodType<Wire<ResponseValue<'session.enhancePrompt'>>>
++
+ /** ContentBlock passthrough: core is merge-extensible — the type discriminant envelope is strict, the rest stays wide. */
+ export const contentBlockSchema = z.looseObject({ type: z.string() })
+ 
+diff --git a/packages/host/apiproxy/src/api/sessions.ts b/packages/host/apiproxy/src/api/sessions.ts
+index 2e7c9b22f4..547e9deb03 100644
+--- a/packages/host/apiproxy/src/api/sessions.ts
++++ b/packages/host/apiproxy/src/api/sessions.ts
+@@ -98,6 +98,16 @@ export interface ModelSelection {
+   reasoningEffort?: string
+ }
+ 
++/** One prompt-enhancement completion: the rewritten prompt plus the route that produced it. */
++export interface PromptEnhancement {
++  /** Rewritten prompt text. */
++  text: string
++  /** Provider route used for the enhancement call. */
++  provider: string
++  /** Model id used for the enhancement call. */
++  model: string
++}
++
+ /** One adapter-owned reasoning effort displayed for an exact model route. */
+ export interface ModelReasoningEffort {
+   /** Opaque value submitted back to the owning adapter. */
+@@ -301,6 +311,16 @@ export interface SessionsApi {
+   }>):
+   Promise<RpcResponse<{ selected: ModelSelection }>>
+ 
++  /**
++   * Rewrites one draft prompt through a cheap model so it is clearer and more
++   * agent-actionable. Uses the official `deepseek-v4-flash` while the session's
++   * current route is official DeepSeek; otherwise falls back to the user's
++   * configured default model. Returns only the rewritten text — no provenance is
++   * recorded in the session log.
++   */
++  enhancePrompt(request: RpcRequest<{ sessionId: SessionId; text: string }>):
++  Promise<RpcResponse<PromptEnhancement>>
++
+   /**
+    * Renames a session: appends a `session/title` event with the `user`
+    * source, which pins the title against automatic regeneration. The
+diff --git a/packages/host/apiproxy/src/fetch/client.ts b/packages/host/apiproxy/src/fetch/client.ts
+index 70e3ece58f..776eb539f6 100644
+--- a/packages/host/apiproxy/src/fetch/client.ts
++++ b/packages/host/apiproxy/src/fetch/client.ts
+@@ -21,6 +21,7 @@ import {
+   sessionCancelValueSchema,
+   sessionAttachmentValueSchema,
+   sessionCreateValueSchema,
++  sessionEnhancePromptValueSchema,
+   sessionForkValueSchema,
+   sessionHistoryValueSchema,
+   sessionListValueSchema,
+@@ -92,6 +93,7 @@ export interface IApiClient {
+     history(payload: RequestPayload<'session.history'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.history'>>>
+     models(payload: RequestPayload<'session.models'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.models'>>>
+     selectModel(payload: RequestPayload<'session.selectModel'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.selectModel'>>>
++    enhancePrompt(payload: RequestPayload<'session.enhancePrompt'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.enhancePrompt'>>>
+     rename(payload: RequestPayload<'session.rename'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.rename'>>>
+     fork(payload: RequestPayload<'session.fork'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.fork'>>>
+     prompt(payload: RequestPayload<'session.prompt'>, signal?: AbortSignal): Promise<RpcResponse<ResponseValue<'session.prompt'>>>
+@@ -176,6 +178,7 @@ const UNARY_VALUE_SCHEMAS: { [K in keyof RpcMethodMap]: z.ZodType<Wire<ResponseV
+   'session.history': sessionHistoryValueSchema,
+   'session.models': sessionModelsValueSchema,
+   'session.selectModel': sessionSelectModelValueSchema,
++  'session.enhancePrompt': sessionEnhancePromptValueSchema,
+   'session.rename': sessionRenameValueSchema,
+   'session.fork': sessionForkValueSchema,
+   'session.prompt': sessionPromptValueSchema,
+@@ -416,6 +419,8 @@ export abstract class AbstractApiClient implements IApiClient {
+     history: (payload, signal) => this.callUnary('session.history', payload, signal),
+     models: (payload, signal) => this.callUnary('session.models', payload, signal),
+     selectModel: (payload, signal) => this.callUnary('session.selectModel', payload, signal),
++    // A model completion may legitimately exceed the normal unary deadline.
++    enhancePrompt: (payload, signal) => this.callUnary('session.enhancePrompt', payload, signal, 'caller-signal-only'),
+     rename: (payload, signal) => this.callUnary('session.rename', payload, signal),
+     fork: (payload, signal) => this.callUnary('session.fork', payload, signal),
+     prompt: (payload, signal) => this.callUnary('session.prompt', payload, signal),
+diff --git a/packages/host/apiproxy/src/fetch/handler.ts b/packages/host/apiproxy/src/fetch/handler.ts
+index 697171ec53..71e34a6ad1 100644
+--- a/packages/host/apiproxy/src/fetch/handler.ts
++++ b/packages/host/apiproxy/src/fetch/handler.ts
+@@ -19,6 +19,7 @@ import {
+   sessionCancelRequestSchema,
+   sessionAttachmentRequestSchema,
+   sessionCreateRequestSchema,
++  sessionEnhancePromptRequestSchema,
+   sessionForkRequestSchema,
+   sessionHistoryRequestSchema,
+   sessionListRequestSchema,
+@@ -94,6 +95,7 @@ const UNARY_ROUTES: UnaryRoutes = {
+   'session.history': { schema: sessionHistoryRequestSchema, invoke: (api, r) => api.sessions.history(r) },
+   'session.models': { schema: sessionModelsRequestSchema, invoke: (api, r) => api.sessions.models(r) },
+   'session.selectModel': { schema: sessionSelectModelRequestSchema, invoke: (api, r) => api.sessions.selectModel(r) },
++  'session.enhancePrompt': { schema: sessionEnhancePromptRequestSchema, invoke: (api, r) => api.sessions.enhancePrompt(r) },
+   'session.rename': { schema: sessionRenameRequestSchema, invoke: (api, r) => api.sessions.rename(r) },
+   'session.fork': { schema: sessionForkRequestSchema, invoke: (api, r) => api.sessions.fork(r) },
+   'session.prompt': { schema: sessionPromptRequestSchema, invoke: (api, r) => api.sessions.prompt(r) },
+diff --git a/packages/host/apiproxy/tests/client-handler.spec.ts b/packages/host/apiproxy/tests/client-handler.spec.ts
+index 4130d8f210..8df36859ef 100644
+--- a/packages/host/apiproxy/tests/client-handler.spec.ts
++++ b/packages/host/apiproxy/tests/client-handler.spec.ts
+@@ -52,6 +52,11 @@ function scriptedApi(overrides: {
+       selectModel: r => ok(r, {
+         selected: { provider: r.payload.provider, model: r.payload.model },
+       }),
++      enhancePrompt: r => ok(r, {
++        text: r.payload.text,
++        provider: 'deepseek-official',
++        model: 'deepseek-v4-flash',
++      }),
+       rename: r => ok(r, { title: 'renamed', seq: 0 }),
+       fork: r => ok(r, { sessionId: sid('s-fork') }),
+       prompt: r => ok(r, { accepted: true as const }),
+diff --git a/packages/host/apiproxy/tests/fetch-carrier.spec.ts b/packages/host/apiproxy/tests/fetch-carrier.spec.ts
+index 2000f708ba..220dd13de5 100644
+--- a/packages/host/apiproxy/tests/fetch-carrier.spec.ts
++++ b/packages/host/apiproxy/tests/fetch-carrier.spec.ts
+@@ -90,6 +90,15 @@ function fakeApi(overrides: Partial<{ muxFrames: MuxFrame[]; hostFrames: HostFra
+       async rename(request) {
+         return { rpcId: request.rpcId, result: { ok: true, value: { title: request.payload.title, seq: 0 } } }
+       },
++      async enhancePrompt(request) {
++        return {
++          rpcId: request.rpcId,
++          result: {
++            ok: true,
++            value: { text: request.payload.text, provider: 'deepseek-official', model: 'deepseek-v4-flash' },
++          },
++        }
++      },
+       async fork(request) {
+         return { rpcId: request.rpcId, result: { ok: true, value: { sessionId: 's-fork' as never } } }
+       },
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 1490a0f9f7..ac0727d365 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -1327,6 +1327,9 @@ importers:
+       '@deepseek-ai/dsh-client-ui-plan':
+         specifier: workspace:^
+         version: link:../../client/ui-plan
++      '@deepseek-ai/dsh-client-ui-prompt-enhancer':
++        specifier: workspace:^
++        version: link:../../client/ui-prompt-enhancer
+       '@deepseek-ai/dsh-client-ui-settings':
+         specifier: workspace:^
+         version: link:../../client/ui-settings
+@@ -2401,6 +2404,55 @@ importers:
+         specifier: ~18.3.0
+         version: 18.3.7(@types/react@18.3.31)
+ 
++  packages/client/ui-prompt-enhancer:
++    dependencies:
++      '@deepseek-ai/dsh-settings':
++        specifier: workspace:^
++        version: link:../../settings/settings
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      clsx:
++        specifier: ^2.0.0
++        version: 2.1.1
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-api-remotes':
++        specifier: workspace:^
++        version: link:../../api/remotes
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../connection
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../locale
++      '@deepseek-ai/dsh-client-runtime':
++        specifier: workspace:^
++        version: link:../runtime
++      '@deepseek-ai/dsh-client-test-runtime':
++        specifier: workspace:^
++        version: link:../../test-support/client-runtime
++      '@deepseek-ai/dsh-client-ui-conversation':
++        specifier: workspace:^
++        version: link:../ui-conversation
++      '@deepseek-ai/dsh-client-ui-settings':
++        specifier: workspace:^
++        version: link:../ui-settings
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../ui-slots
++      '@deepseek-ai/dsh-invariants':
++        specifier: workspace:^
++        version: link:../../runtime-diagnostics/invariants
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
+   packages/client/ui-settings:
+     dependencies:
+       '@deepseek-ai/dsh-client-connection':
+diff --git a/tsconfig.base.json b/tsconfig.base.json
+index 16d69db6db..714a3de31b 100644
+--- a/tsconfig.base.json
++++ b/tsconfig.base.json
+@@ -201,6 +201,7 @@
+       "@deepseek-ai/dsh-client-ui-input-trigger": ["./packages/client/ui-input-trigger/src"],
+       "@deepseek-ai/dsh-client-ui-commands": ["./packages/client/ui-commands/src"],
+       "@deepseek-ai/dsh-client-ui-model-selection": ["./packages/client/ui-model-selection/src"],
++      "@deepseek-ai/dsh-client-ui-prompt-enhancer": ["./packages/client/ui-prompt-enhancer/src"],
+       "@deepseek-ai/dsh-client-ui-goal": ["./packages/client/ui-goal/src"],
+       "@deepseek-ai/dsh-client-ui-message-feedback": ["./packages/client/ui-message-feedback/src"],
+       "@deepseek-ai/dsh-client-ui-agent-preset": ["./packages/client/ui-agent-preset/src"],
+diff --git a/tsconfig.client.json b/tsconfig.client.json
+index e599f76f1b..dfa8a0c98b 100644
+--- a/tsconfig.client.json
++++ b/tsconfig.client.json
+@@ -79,6 +79,7 @@
+     { "path": "./packages/client/ui-goal" },
+     { "path": "./packages/client/ui-message-feedback" },
+     { "path": "./packages/client/ui-model-selection" },
++    { "path": "./packages/client/ui-prompt-enhancer" },
+     { "path": "./packages/client/ui-agent-preset" },
+     { "path": "./packages/client/ui-permission-presets" },
+     { "path": "./packages/client/ui-plan" },
