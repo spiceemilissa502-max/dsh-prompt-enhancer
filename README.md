@@ -31,7 +31,7 @@
 
 ## 兼容性
 
-- **目标 DSH 版本：`0.1.0-rc.5`**（插件 peerDependencies 依赖同版本 `@deepseek-ai/dsh-*` 工作区包）。
+- **目标 DSH 版本：`0.0.1-rc.1`**（插件 peerDependencies 依赖同版本 `@deepseek-ai/dsh-*` 工作区包）。
 - **依赖新增宿主 RPC `session.enhancePrompt`**：补丁 `patch-0001-prompt-enhancer.patch` 包含该 apiproxy 改动，安装时必须应用（若接收方 DSH 已含该 RPC 可跳过）。
 
 > ⚠️ 目前不提供 npm 包分发：`@deepseek-ai/dsh-*@0.1.0-rc.5` 尚未发布到公开 npm（仅有旧版 `0.0.1-rc.1`），
@@ -76,6 +76,8 @@ curl -fsSL https://raw.githubusercontent.com/spiceemilissa502-max/dsh-prompt-enh
 1. 在输入框输入任意内容 → 模型选择左侧出现魔法棒图标。
 2. 点击图标 → 输入框内容被润色替换（图标转圈期间提示「增强中…」）。
 3. 设置 → 通用设置 → 「增强提示词」开关可随时启用/关闭。
+效果如图：
+<img width="1578" height="1224" alt="image" src="https://github.com/user-attachments/assets/b2c05971-6189-4e73-99a7-b06863afd24f" />
 
 ## 从源码开发
 
